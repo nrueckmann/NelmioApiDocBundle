@@ -66,6 +66,11 @@ class JMSModelDescriber implements ModelDescriberInterface, ModelRegistryAwareIn
             $name = $this->namingStrategy->translateName($item);
             $property = $properties->get($name);
 
+            // readOnly property
+            if($item->readOnly === true) {
+                $property->setReadOnly(true);
+            }
+
             if ($type = $this->getNestedTypeInArray($item)) {
                 $property->setType('array');
                 $property = $property->getItems();
